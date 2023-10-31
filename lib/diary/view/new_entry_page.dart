@@ -42,9 +42,15 @@ class _NewEntryPageState extends State<NewEntryPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: const Text('New Diary'),
+        title: const Text(
+          'New Diary',
+          style: TextStyle(color: Colors.white, fontSize: 24),
+        ),
         leading: IconButton(
-          icon: const Icon(Icons.close),
+          icon: const Icon(
+            Icons.close,
+            color: Colors.white,
+          ),
           onPressed: () {
             Navigator.pop(context);
           },
