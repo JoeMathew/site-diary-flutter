@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 
-import 'package:site_diary_app/diary/view/add_photo_button.dart';
-
-class PhotoCard extends StatefulWidget {
-  const PhotoCard({super.key});
+class CommentsCard extends StatefulWidget {
+  const CommentsCard({super.key});
 
   @override
-  _PhotoCardState createState() => _PhotoCardState();
+  _CommentsCardState createState() => _CommentsCardState();
 }
 
-class _PhotoCardState extends State<PhotoCard> {
-  // This is a mock list of image thumbnails. Replace with your data.
-  List<String> thumbnails = [];
+class _CommentsCardState extends State<CommentsCard> {
+  final TextEditingController commentsController = TextEditingController();
+
+  @override
+  void dispose() {
+    commentsController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,54 +22,31 @@ class _PhotoCardState extends State<PhotoCard> {
       margin: const EdgeInsets.all(16),
       child: SizedBox(
         width: MediaQuery.of(context).size.width - 28,
-        child: const Padding(
-          padding: EdgeInsets.all(16),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Add photos to site diary',
+              const Text(
+                'Comments',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 7,
               ),
-              Divider(),
-              // Wrap(
-              //   spacing: 8,
-              //   runSpacing: 8,
-              //   children: thumbnails.map((thumbnail) {
-              //     return Stack(
-              //       alignment: Alignment.topRight,
-              //       children: [
-              //         Image.asset(
-              //           thumbnail,
-              //           width: 50, // Set your desired width for the thumbnail
-              //           height: 50, // Set your desired height for the thumbnail
-              //           fit: BoxFit.cover,
-              //         ),
-              //         IconButton(
-              //           icon: const Icon(
-              //             Icons.close,
-              //             size: 18,
-              //             color: Colors.red,
-              //           ),
-              //           onPressed: () {
-              //             setState(() {
-              //               thumbnails.remove(thumbnail);
-              //             });
-              //           },
-              //         ),
-              //       ],
-              //     );
-              //   }).toList(),
-              // ),
-              SizedBox(height: 14),
-              Center(child: AddPhotoButton()),
-              
+              const Divider(),
+              const SizedBox(height: 7), // Space between Divider and TextField
+              TextField(
+                controller:
+                    commentsController, // Assign the controller to the TextField
+                decoration: const InputDecoration(
+                  hintText: 'Comments',
+                ),
+              ),
+              const SizedBox(height: 14),
             ],
           ),
         ),

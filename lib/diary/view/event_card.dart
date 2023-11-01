@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 
 import 'package:site_diary_app/diary/view/add_photo_button.dart';
 
-class PhotoCard extends StatefulWidget {
-  const PhotoCard({super.key});
+import 'package:site_diary_app/diary/view/event_picker.dart';
+
+class EventCard extends StatefulWidget {
+  const EventCard({super.key});
 
   @override
-  _PhotoCardState createState() => _PhotoCardState();
+  _EventCardState createState() => _EventCardState();
 }
 
-class _PhotoCardState extends State<PhotoCard> {
+class _EventCardState extends State<EventCard> {
   // This is a mock list of image thumbnails. Replace with your data.
+  bool _isChecked = false;
   List<String> thumbnails = [];
 
   @override
@@ -19,54 +22,38 @@ class _PhotoCardState extends State<PhotoCard> {
       margin: const EdgeInsets.all(16),
       child: SizedBox(
         width: MediaQuery.of(context).size.width - 28,
-        child: const Padding(
-          padding: EdgeInsets.all(16),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Add photos to site diary',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Link to existing event?',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Checkbox(
+                    value: _isChecked,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        _isChecked = value ?? false;
+                      });
+                    },
+                  ),
+                ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 7,
               ),
-              Divider(),
-              // Wrap(
-              //   spacing: 8,
-              //   runSpacing: 8,
-              //   children: thumbnails.map((thumbnail) {
-              //     return Stack(
-              //       alignment: Alignment.topRight,
-              //       children: [
-              //         Image.asset(
-              //           thumbnail,
-              //           width: 50, // Set your desired width for the thumbnail
-              //           height: 50, // Set your desired height for the thumbnail
-              //           fit: BoxFit.cover,
-              //         ),
-              //         IconButton(
-              //           icon: const Icon(
-              //             Icons.close,
-              //             size: 18,
-              //             color: Colors.red,
-              //           ),
-              //           onPressed: () {
-              //             setState(() {
-              //               thumbnails.remove(thumbnail);
-              //             });
-              //           },
-              //         ),
-              //       ],
-              //     );
-              //   }).toList(),
-              // ),
-              SizedBox(height: 14),
-              Center(child: AddPhotoButton()),
-              
+              const Divider(),
+              const SizedBox(height: 14),
+              const EventPicker(),
+              const SizedBox(height: 14),
             ],
           ),
         ),

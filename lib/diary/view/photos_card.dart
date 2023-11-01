@@ -12,6 +12,7 @@ class PhotoCard extends StatefulWidget {
 class _PhotoCardState extends State<PhotoCard> {
   // This is a mock list of image thumbnails. Replace with your data.
   List<String> thumbnails = [];
+  bool _isChecked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -19,22 +20,22 @@ class _PhotoCardState extends State<PhotoCard> {
       margin: const EdgeInsets.all(16),
       child: SizedBox(
         width: MediaQuery.of(context).size.width - 28,
-        child: const Padding(
-          padding: EdgeInsets.all(16),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(
+              const Text(
                 'Add photos to site diary',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 7,
               ),
-              Divider(),
+              const Divider(),
               // Wrap(
               //   spacing: 8,
               //   runSpacing: 8,
@@ -64,9 +65,22 @@ class _PhotoCardState extends State<PhotoCard> {
               //     );
               //   }).toList(),
               // ),
-              SizedBox(height: 14),
-              Center(child: AddPhotoButton()),
-              
+              const SizedBox(height: 14),
+              const Center(child: AddPhotoButton()),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text('Include in photo gallery'),
+                  Checkbox(
+                    value: _isChecked,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        _isChecked = value ?? false;
+                      });
+                    },
+                  ),
+                ],
+              ),
             ],
           ),
         ),

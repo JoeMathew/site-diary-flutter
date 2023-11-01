@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
+import 'package:site_diary_app/diary/view/details_card.dart';
 import 'package:site_diary_app/diary/view/location_display.dart';
 
 import 'package:site_diary_app/diary/view/new_entry_subtitle.dart';
 
 import 'package:site_diary_app/diary/view/photos_card.dart';
+
+import 'package:site_diary_app/diary/view/comments_card.dart';
+
+import 'package:site_diary_app/diary/view/event_card.dart';
+
+import 'package:site_diary_app/diary/view/next_button.dart';
 
 class NewEntryPage extends StatefulWidget {
   const NewEntryPage({super.key});
@@ -37,17 +44,21 @@ class _NewEntryPageState extends State<NewEntryPage> {
       ),
       body: ColoredBox(
         color: Colors.blueGrey.shade100,
-        child: const Column(
-          children: [
-            LocationDisplay(),
-            NewEntrySubtitle(),
-            PhotoCard(),
-            Expanded(
-              child: Center(
-                child: Text('Add your new diary entry here'),
+        child: const SingleChildScrollView(
+          child: Column(
+            children: [
+              LocationDisplay(),
+              NewEntrySubtitle(),
+              PhotoCard(),
+              CommentsCard(),
+              DetailsCard(),
+              EventCard(),
+              NextButton(),
+              SizedBox(
+                height: 21,
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
