@@ -14,7 +14,7 @@ class NewEntrySubtitle extends StatelessWidget {
             'Add to site diary',
             style: TextStyle(
               color: Colors.black,
-              fontSize: 20,
+              fontSize: 21,
             ),
           ),
         ),

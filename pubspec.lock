@@ -221,6 +221,38 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.2"
+  hl_image_picker:
+    dependency: "direct main"
+    description:
+      name: hl_image_picker
+      sha256: dc92308971551cd4e1326b309b9f181d5b742306318064ed9fc665172e65246a
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.7"
+  hl_image_picker_android:
+    dependency: transitive
+    description:
+      name: hl_image_picker_android
+      sha256: "6cadda934db941ad9da8ada71956e128ddd2dabc59d15a4271ff1ad4fe8d2e74"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.2"
+  hl_image_picker_ios:
+    dependency: transitive
+    description:
+      name: hl_image_picker_ios
+      sha256: a46afa35fe41458e3b405a1470532470921ec1475cf5431ec163e7919b832590
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.4"
+  hl_image_picker_platform_interface:
+    dependency: transitive
+    description:
+      name: hl_image_picker_platform_interface
+      sha256: d6f589c25b47e56c5f1270b3c13b834ee6e39d7cb5be65ad1979e27b77a1626b
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.1"
   http:
     dependency: transitive
     description:
