@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
+import 'package:site_diary_app/diary/view/location_display.dart';
+
+import 'package:site_diary_app/diary/view/new_entry_subtitle.dart';
+
+import 'package:site_diary_app/diary/view/photos_card.dart';
 
 class NewEntryPage extends StatefulWidget {
   const NewEntryPage({super.key});
@@ -11,32 +16,6 @@ class NewEntryPage extends StatefulWidget {
 }
 
 class _NewEntryPageState extends State<NewEntryPage> {
-  final Location location = Location();
-  String locationInfo = 'Fetching location...';
-
-  @override
-  void initState() {
-    super.initState();
-    fetchLocation();
-  }
-
-  // Function to fetch and update location information
-  Future<void> fetchLocation() async {
-    LocationData? locationData;
-    try {
-      locationData = await location.getLocation();
-      setState(() {
-        locationInfo =
-            'Latitude: ${locationData?.latitude}\nLongitude: ${locationData?.longitude}';
-      });
-    } catch (e) {
-      print('Error fetching location: $e');
-      setState(() {
-        locationInfo = 'Location not available';
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,36 +35,14 @@ class _NewEntryPageState extends State<NewEntryPage> {
           },
         ),
       ),
-      body: Container(
+      body: ColoredBox(
         color: Colors.blueGrey.shade100,
-        child: Column(
-          children: <Widget>[
-            Container(
-              color: Colors.white,
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.location_on,
-                        color: Colors.blue,
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        locationInfo,
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            const Expanded(
+        child: const Column(
+          children: [
+            LocationDisplay(),
+            NewEntrySubtitle(),
+            PhotoCard(),
+            Expanded(
               child: Center(
                 child: Text('Add your new diary entry here'),
               ),
