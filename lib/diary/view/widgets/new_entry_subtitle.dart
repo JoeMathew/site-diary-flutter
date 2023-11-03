@@ -14,22 +14,20 @@ class NewEntrySubtitle extends StatelessWidget {
             'Add to site diary',
             style: TextStyle(
               color: Colors.black,
-              fontSize: 21,
+              fontSize: 24,
             ),
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(16),
           child: Tooltip(
-            message: 'Placeholder text for the tooltip.',
+            message: 'Add new entry details to site diary.',
             child: IconButton(
               icon: const Icon(
                 Icons.help_outline,
                 color: Colors.blue,
               ),
-              onPressed: () {
-                // You can still handle additional actions when the icon is pressed.
-              },
+              onPressed: () {},
             ),
           ),
         ),

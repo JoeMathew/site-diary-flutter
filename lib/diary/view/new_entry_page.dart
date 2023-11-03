@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
-import 'package:site_diary_app/diary/view/details_card.dart';
-import 'package:site_diary_app/diary/view/location_display.dart';
-
-import 'package:site_diary_app/diary/view/new_entry_subtitle.dart';
-
-import 'package:site_diary_app/diary/view/photos_card.dart';
-
-import 'package:site_diary_app/diary/view/comments_card.dart';
-
-import 'package:site_diary_app/diary/view/event_card.dart';
-
-import 'package:site_diary_app/diary/view/next_button.dart';
+import 'package:site_diary_app/diary/view/widgets/comments_card.dart';
+import 'package:site_diary_app/diary/view/widgets/details_card.dart';
+import 'package:site_diary_app/diary/view/widgets/event_card.dart';
+import 'package:site_diary_app/diary/view/widgets/location_display.dart';
+import 'package:site_diary_app/diary/view/widgets/new_entry_subtitle.dart';
+import 'package:site_diary_app/diary/view/widgets/next_button.dart';
+import 'package:site_diary_app/diary/view/widgets/photos_card.dart';
 
 class NewEntryPage extends StatefulWidget {
   const NewEntryPage({super.key});
@@ -36,6 +31,7 @@ class _NewEntryPageState extends State<NewEntryPage> {
           icon: const Icon(
             Icons.close,
             color: Colors.white,
+            size: 28,
           ),
           onPressed: () {
             Navigator.pop(context);
@@ -49,7 +45,7 @@ class _NewEntryPageState extends State<NewEntryPage> {
             children: [
               LocationDisplay(),
               NewEntrySubtitle(),
-              PhotoCard(),
+              PhotosCard(),
               CommentsCard(),
               DetailsCard(),
               EventCard(),

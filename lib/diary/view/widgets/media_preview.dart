@@ -5,12 +5,12 @@ import 'package:hl_image_picker/hl_image_picker.dart';
 
 class MediaPreview extends StatefulWidget {
   const MediaPreview({
-    required this.items,
+    required this.photos,
     required this.onItemRemoved, // Add this callback
     super.key,
   });
 
-  final List<HLPickerItem> items;
+  final List<HLPickerItem> photos;
   final Function(HLPickerItem) onItemRemoved;
 
   @override
@@ -18,31 +18,31 @@ class MediaPreview extends StatefulWidget {
 }
 
 class _MediaPreviewState extends State<MediaPreview> {
-  late List<HLPickerItem> _items;
+  late List<HLPickerItem> _photos;
 
   @override
   void initState() {
     super.initState();
-    _items = List.from(widget.items);
+    _photos = List.from(widget.photos);
   }
 
   @override
   void didUpdateWidget(MediaPreview oldWidget) {
     super.didUpdateWidget(oldWidget);
     // Check if items list has been updated
-    if (widget.items != oldWidget.items) {
-      _items = List.from(widget.items);
+    if (widget.photos != oldWidget.photos) {
+      _photos = List.from(widget.photos);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_items.isEmpty) {
+    if (_photos.isEmpty) {
       return Container(
-        height: 240,
-        color: Colors.grey[300],
+        height: 100,
+        color: Colors.blueGrey.shade100,
         child: const Center(
-          child: Text('Empty'),
+          child: Text('No photos added'),
         ),
       );
     }
@@ -52,7 +52,7 @@ class _MediaPreviewState extends State<MediaPreview> {
       child: Wrap(
         spacing: 8,
         runSpacing: 4,
-        children: _items.map((item) {
+        children: _photos.map((item) {
           File? imageFile = File(item.path);
           if (item.type == 'video') {
             imageFile = item.thumbnail != null ? File(item.thumbnail!) : null;
@@ -76,17 +76,37 @@ class _MediaPreviewState extends State<MediaPreview> {
                   child: const Text('No thumbnail'),
                 ),
               Positioned(
-                right: 0,
-                child: IconButton(
-                  icon: const Icon(Icons.close, color: Colors.red),
-                  onPressed: () {
-                    setState(() {
-                      _items.remove(item);
-                    });
-                    widget.onItemRemoved(
-                      item,
-                    ); // Notify the parent
-                  },
+                top: 2, // slight padding from the top
+                right: 2, // slight padding from the right
+                child: Container(
+                  width: 20, // set specific width
+                  height: 20, // set specific height
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: Colors.white,
+                      width: 1.5,
+                    ), // white border
+                  ),
+                  child: Center(
+                    child: IconButton(
+                      padding: EdgeInsets.zero, // remove default padding
+                      constraints:
+                          const BoxConstraints(), // remove default constraints
+                      icon: const Icon(
+                        Icons.close,
+                        color: Colors.white,
+                        size: 12,
+                      ), // adjust icon size
+                      onPressed: () {
+                        setState(() {
+                          _photos.remove(item);
+                        });
+                        widget.onItemRemoved(item); // Notify the parent
+                      },
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -94,13 +114,5 @@ class _MediaPreviewState extends State<MediaPreview> {
         }).toList(),
       ),
     );
-  }
-
-  void _removeItem(int index) {
-    final removedItem = _items[index];
-    setState(() {
-      _items.removeAt(index);
-    });
-    widget.onItemRemoved(removedItem); // Notify the parent of the removal
   }
 }

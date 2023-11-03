@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'package:site_diary_app/diary/view/area_picker.dart';
-
-import 'package:site_diary_app/diary/view/category_picker.dart';
+import 'package:site_diary_app/diary/view/widgets/area_picker.dart';
+import 'package:site_diary_app/diary/view/widgets/category_picker.dart';
 
 class DetailsCard extends StatefulWidget {
   const DetailsCard({super.key});

@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'package:site_diary_app/diary/view/add_photo_button.dart';
-
-import 'package:site_diary_app/diary/view/event_picker.dart';
+import 'package:site_diary_app/diary/view/widgets/event_picker.dart';
 
 class EventCard extends StatefulWidget {
   const EventCard({super.key});

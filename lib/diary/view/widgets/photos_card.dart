@@ -1,21 +1,15 @@
 import 'package:flutter/material.dart';
-
-import 'package:site_diary_app/diary/view/add_photo_button.dart';
-
 import 'package:hl_image_picker/hl_image_picker.dart';
+import 'package:site_diary_app/diary/view/widgets/media_preview.dart';
 
-import 'package:site_diary_app/diary/view/media_preview.dart';
-
-class PhotoCard extends StatefulWidget {
-  const PhotoCard({super.key});
+class PhotosCard extends StatefulWidget {
+  const PhotosCard({super.key});
 
   @override
-  _PhotoCardState createState() => _PhotoCardState();
+  _PhotosCardState createState() => _PhotosCardState();
 }
 
-class _PhotoCardState extends State<PhotoCard> {
-  // This is a mock list of image thumbnails. Replace with your data.
-  List<String> thumbnails = [];
+class _PhotosCardState extends State<PhotosCard> {
   bool _isChecked = false;
   final _picker = HLImagePicker();
 
@@ -62,7 +56,6 @@ class _PhotoCardState extends State<PhotoCard> {
         ),
       );
       setState(() {
-        print('NEW COUNT = ${images.length}');
         _selectedImages = images;
       });
     } catch (e) {
@@ -126,10 +119,11 @@ class _PhotoCardState extends State<PhotoCard> {
       child: SizedBox(
         width: MediaQuery.of(context).size.width - 28,
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(14),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              /// 1. Title
               const Text(
                 'Add photos to site diary',
                 style: TextStyle(
@@ -141,31 +135,48 @@ class _PhotoCardState extends State<PhotoCard> {
                 height: 7,
               ),
               const Divider(),
+
+              /// 2. Selected Images preview
               MediaPreview(
-                items: _selectedImages,
+                photos: _selectedImages,
                 onItemRemoved: (removedItem) {
                   setState(() {
-                    print("----REMOVED $removedItem");
                     _selectedImages.remove(removedItem);
-                    print(_selectedImages);
                   });
                 },
               ),
-              const SizedBox(height: 14),
+              const SizedBox(height: 21),
+
+              /// 'Add photo' button
               Center(
                 child: ElevatedButton(
                   onPressed: _openPicker,
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
-                    backgroundColor: Colors.lightGreen,
+                    backgroundColor: Colors.lightGreenAccent.shade700,
                   ),
-                  child: const Text('Add a photo'),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width - 56,
+                    height: 50,
+                    child: const Center(
+                      child: Text(
+                        'Add a photo',
+                        style: TextStyle(fontSize: 17),
+                      ),
+                    ),
+                  ),
                 ),
+              ),
+              const SizedBox(
+                height: 14,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('Include in photo gallery'),
+                  const Text(
+                    'Include in photo gallery',
+                    style: TextStyle(fontSize: 17),
+                  ),
                   Checkbox(
                     value: _isChecked,
                     onChanged: (bool? value) {
