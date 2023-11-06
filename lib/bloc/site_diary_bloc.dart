@@ -7,9 +7,10 @@ import 'package:http/http.dart' as http;
 import 'package:site_diary_app/services/web_service.dart';
 
 class SiteDiaryBloc extends Cubit<SiteDiaryState> {
-  SiteDiaryBloc(this.webService) : super(SiteDiaryInitial());
+  SiteDiaryBloc({required this.webService, required this.currentDiary})
+      : super(SiteDiaryInitial());
   final WebService webService;
-  late SiteDiaryModel currentDiary;
+  SiteDiaryModel currentDiary;
 
   void updateDiary(SiteDiaryModel siteDiary) {
     currentDiary = siteDiary;

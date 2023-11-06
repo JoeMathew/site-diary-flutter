@@ -7,16 +7,12 @@ import 'package:site_diary_app/diary/view/new_entry_page.dart';
 import 'package:site_diary_app/services/web_service.dart';
 
 class HomePage extends StatelessWidget {
-  HomePage({super.key});
+  const HomePage({super.key});
   static String route = 'HomePage';
-  final webService = WebService(backendUrl);
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => SiteDiaryBloc(webService),
-      child: const PagesListView(),
-    );
+    return const PagesListView();
   }
 }
 
@@ -54,7 +50,7 @@ class AddNewPageText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final entries = context.select((SiteDiaryBloc bloc) => bloc.state);
+    //final entries = context.select((SiteDiaryBloc bloc) => bloc.state);
     return Padding(
       padding: const EdgeInsets.all(21),
       child: Text(
