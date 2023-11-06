@@ -3,29 +3,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-
-import 'package:site_diary_app/diary/counter.dart';
+import 'package:site_diary_app/bloc/site_diary_bloc.dart';
+import 'package:site_diary_app/diary/view/list_page.dart';
 
 import '../../helpers/helpers.dart';
 
-class MockCounterCubit extends MockCubit<int> implements CounterCubit {}
+//class MockSiteDiaryBloc extends MockCubit<int> implements SiteDiaryBloc {}
 
 void main() {
   group('CounterPage', () {
     testWidgets('renders CounterView', (tester) async {
-      await tester.pumpApp(const HomePage());
+      await tester.pumpApp(HomePage());
       expect(find.byType(PagesListView), findsOneWidget);
     });
   });
 
   group('CounterView', () {
-    late CounterCubit counterCubit;
+    late SiteDiaryBloc counterCubit;
 
     setUp(() {
-      counterCubit = MockCounterCubit();
+      //counterCubit = MockSiteDiaryBloc();
     });
 
-    testWidgets('renders current count', (tester) async {
+    /*testWidgets('renders current count', (tester) async {
       const state = 42;
       when(() => counterCubit.state).thenReturn(state);
       await tester.pumpApp(
@@ -63,6 +63,6 @@ void main() {
       );
       await tester.tap(find.byIcon(Icons.remove));
       verify(() => counterCubit.decrement()).called(1);
-    });
+    }); */
   });
 }

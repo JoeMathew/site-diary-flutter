@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hl_image_picker/hl_image_picker.dart';
+import 'package:site_diary_app/bloc/site_diary_bloc.dart';
 import 'package:site_diary_app/diary/view/widgets/media_preview.dart';
 
 class PhotosCard extends StatefulWidget {
@@ -27,6 +29,17 @@ class _PhotosCardState extends State<PhotosCard> {
   List<CropAspectRatioPreset>? _aspectRatioPresets;
   final double _compressQuality = 0.9;
   final CroppingStyle _croppingStyle = CroppingStyle.normal;
+
+  _updatePhotosToBloc() {
+    // Convert HLPickerItem list to a list of strings containing the file paths
+    final photoPaths = _selectedImages.map((e) => e.path).toList();
+
+    // Get the SiteDiaryBloc instance from the context
+    final bloc = context.read<SiteDiaryBloc>();
+
+    // Call the updatePhotos method on the bloc instance to update the photos
+    bloc.updatePhotos(photoPaths);
+  }
 
   _openPicker() async {
     try {
@@ -58,6 +71,7 @@ class _PhotosCardState extends State<PhotosCard> {
       setState(() {
         _selectedImages = images;
       });
+      _updatePhotosToBloc();
     } catch (e) {
       debugPrint(e.toString());
     }
@@ -84,6 +98,7 @@ class _PhotosCardState extends State<PhotosCard> {
       setState(() {
         _selectedImages = [image];
       });
+      _updatePhotosToBloc();
     } catch (e) {
       debugPrint(e.toString());
     }
@@ -107,9 +122,18 @@ class _PhotosCardState extends State<PhotosCard> {
       setState(() {
         _selectedImages = [image];
       });
+      _updatePhotosToBloc();
     } catch (e) {
       debugPrint(e.toString());
     }
+  }
+
+  @override
+  void didUpdateWidget(covariant PhotosCard oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    // Call _updatePhotosToBloc whenever the widget updates
+    _updatePhotosToBloc();
   }
 
   @override
@@ -143,6 +167,7 @@ class _PhotosCardState extends State<PhotosCard> {
                   setState(() {
                     _selectedImages.remove(removedItem);
                   });
+                  _updatePhotosToBloc();
                 },
               ),
               const SizedBox(height: 21),

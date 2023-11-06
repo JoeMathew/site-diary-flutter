@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 
+typedef OnAreaSelected = void Function(String area);
+
 class AreaPicker extends StatefulWidget {
-  const AreaPicker({super.key});
+  // Define a callback function parameter
+
+  const AreaPicker({
+    required this.onSelected,
+    super.key,
+  });
+  final OnAreaSelected onSelected;
 
   @override
   _AreaPickerState createState() => _AreaPickerState();
@@ -67,6 +75,9 @@ class _AreaPickerState extends State<AreaPicker> {
         selectedArea = selected;
         areaController.text = selectedArea;
       });
+      widget.onSelected(
+        selectedArea,
+      ); // Invoke the callback with the selected area
     }
   }
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:site_diary_app/diary/counter.dart';
+import 'package:site_diary_app/diary/view/list_page.dart';
 import 'package:site_diary_app/diary/view/new_entry_page.dart';
 import 'package:site_diary_app/l10n/l10n.dart';
 
@@ -20,7 +20,7 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: HomePage.route,
       routes: {
-        HomePage.route: (context) => const HomePage(),
+        HomePage.route: (context) => HomePage(),
         NewEntryPage.route: (context) => const NewEntryPage(),
       },
     );

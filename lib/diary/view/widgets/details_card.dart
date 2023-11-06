@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:site_diary_app/bloc/site_diary_bloc.dart';
 import 'package:site_diary_app/diary/view/widgets/area_picker.dart';
 import 'package:site_diary_app/diary/view/widgets/category_picker.dart';
 
@@ -34,11 +36,11 @@ class _DetailsCardState extends State<DetailsCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.all(16),
+      margin: const EdgeInsets.all(14),
       child: SizedBox(
         width: MediaQuery.of(context).size.width - 28,
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(14),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -62,18 +64,37 @@ class _DetailsCardState extends State<DetailsCard> {
                     onPressed: () => _selectDate(context),
                   ),
                 ),
-                onTap: () => _selectDate(context), // Opens DatePicker on tap
+                onTap: () {
+                  _selectDate(context).then((_) {
+                    // Update the date in the bloc after selection
+                    context.read<SiteDiaryBloc>().updateDate(selectedDate);
+                  });
+                },
               ),
               const SizedBox(height: 14),
-              const AreaPicker(),
+              AreaPicker(
+                onSelected: (String area) {
+                  // Update the area in the bloc when an area is selected
+                  context.read<SiteDiaryBloc>().updateArea(area);
+                },
+              ),
               const SizedBox(height: 14),
-              const CategoryPicker(),
+              CategoryPicker(
+                onSelected: (String category) {
+                  // Update the category in the bloc when a category is selected
+                  context.read<SiteDiaryBloc>().updateCategory(category);
+                },
+              ),
               const SizedBox(height: 14),
               TextField(
                 controller: tagsController,
                 decoration: const InputDecoration(
                   hintText: 'Tags',
                 ),
+                onSubmitted: (String tagsInput) {
+                  // Update the tags in the bloc
+                  context.read<SiteDiaryBloc>().updateTags(tagsInput);
+                },
               ),
               const SizedBox(height: 14),
             ],

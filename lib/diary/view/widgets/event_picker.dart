@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:site_diary_app/bloc/site_diary_bloc.dart';
 
 class EventPicker extends StatefulWidget {
   const EventPicker({super.key});
@@ -67,6 +69,9 @@ class _EventPickerState extends State<EventPicker> {
         selectedEvent = selected;
         eventController.text = selectedEvent;
       });
+      context.read<SiteDiaryBloc>().updateLinkedEvent(
+            selectedEvent,
+          );
     }
   }
 

@@ -34,4 +34,31 @@ class SiteDiaryModel {
 
   // Method to convert the instance to a map
   Map<String, dynamic> toJson() => _$SiteDiaryModelToJson(this);
+
+  // copyWith method for updating some fields while keeping others the same.
+  SiteDiaryModel copyWith({
+    String? siteLocation,
+    List<String>? photos,
+    String? comments,
+    DateTime? date,
+    String? area,
+    String? category,
+    List<String>? tags,
+    String? linkedEvent,
+    String? createdBy,
+    DateTime? lastModified,
+  }) {
+    return SiteDiaryModel(
+      siteLocation: siteLocation ?? this.siteLocation,
+      photos: photos ?? this.photos,
+      comments: comments ?? this.comments,
+      date: date ?? this.date,
+      area: area ?? this.area,
+      category: category ?? this.category,
+      tags: tags ?? this.tags,
+      linkedEvent: linkedEvent ?? this.linkedEvent,
+      createdBy: createdBy ?? this.createdBy,
+      lastModified: lastModified ?? this.lastModified,
+    );
+  }
 }

@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:site_diary_app/diary/counter.dart';
+import 'package:site_diary_app/bloc/site_diary_bloc.dart';
+import 'package:site_diary_app/constants.dart';
 import 'package:site_diary_app/l10n/l10n.dart';
-
 import 'package:site_diary_app/diary/view/new_entry_page.dart';
+import 'package:site_diary_app/services/web_service.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
   static String route = 'HomePage';
+  final webService = WebService(backendUrl);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => CounterCubit(),
+      create: (_) => SiteDiaryBloc(webService),
       child: const PagesListView(),
     );
   }
@@ -52,11 +54,11 @@ class AddNewPageText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final count = context.select((CounterCubit cubit) => cubit.state);
+    final entries = context.select((SiteDiaryBloc bloc) => bloc.state);
     return Padding(
       padding: const EdgeInsets.all(21),
       child: Text(
-        "G'day! Tap the 'Add New' button to add a new page to the diary",
+        "G'day! Tap 'Add New' to add a new entry to the diary",
         style: theme.textTheme.displaySmall,
       ),
     );

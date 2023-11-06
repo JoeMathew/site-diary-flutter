@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 
+typedef OnCategorySelected = void Function(String category);
+
 class CategoryPicker extends StatefulWidget {
-  const CategoryPicker({super.key});
+  // Define a callback function parameter
+
+  const CategoryPicker({
+    required this.onSelected,
+    super.key,
+  });
+  final OnCategorySelected onSelected;
 
   @override
   _CategoryPickerState createState() => _CategoryPickerState();
@@ -9,15 +17,20 @@ class CategoryPicker extends StatefulWidget {
 
 class _CategoryPickerState extends State<CategoryPicker> {
   // This is a mock list of areas. Replace with your data if needed.
-  List<String> areas = ['Category 1', 'Category 2', 'Category 3', 'Category 4'];
-  String selectedArea = '';
-  final areaController = TextEditingController();
+  List<String> categories = [
+    'Category 1',
+    'Category 2',
+    'Category 3',
+    'Category 4',
+  ];
+  String selectedCategory = '';
+  final categoryController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    selectedArea = areas[0]; // Default to first area
-    areaController.text = selectedArea;
+    selectedCategory = categories[0]; // Default to first area
+    categoryController.text = selectedCategory;
   }
 
   @override
@@ -26,13 +39,13 @@ class _CategoryPickerState extends State<CategoryPicker> {
       children: [
         Expanded(
           child: TextField(
-            controller: areaController,
+            controller: categoryController,
             decoration: InputDecoration(
               hintText: 'Select an Area',
               suffixIcon: IconButton(
                 icon: const Icon(Icons.arrow_drop_down),
                 onPressed: () async {
-                  await _selectArea(context);
+                  await _selectCategory(context);
                 },
               ),
             ),
@@ -44,17 +57,17 @@ class _CategoryPickerState extends State<CategoryPicker> {
     );
   }
 
-  Future<void> _selectArea(BuildContext context) async {
+  Future<void> _selectCategory(BuildContext context) async {
     final selected = await showModalBottomSheet<String>(
       context: context,
       builder: (BuildContext context) {
         return Column(
           mainAxisSize: MainAxisSize.min,
-          children: areas.map((String area) {
+          children: categories.map((String category) {
             return ListTile(
-              title: Text(area),
+              title: Text(category),
               onTap: () {
-                Navigator.pop(context, area);
+                Navigator.pop(context, category);
               },
             );
           }).toList(),
@@ -62,17 +75,20 @@ class _CategoryPickerState extends State<CategoryPicker> {
       },
     );
 
-    if (selected != null && selected != selectedArea) {
+    if (selected != null && selected != selectedCategory) {
       setState(() {
-        selectedArea = selected;
-        areaController.text = selectedArea;
+        selectedCategory = selected;
+        categoryController.text = selectedCategory;
       });
+      widget.onSelected(
+        selectedCategory,
+      ); // Invoke the callback with the selected category
     }
   }
 
   @override
   void dispose() {
-    areaController.dispose();
+    categoryController.dispose();
     super.dispose();
   }
 }

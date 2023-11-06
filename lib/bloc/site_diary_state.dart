@@ -13,12 +13,21 @@ class SiteDiaryUpdated extends SiteDiaryState {
   final SiteDiaryModel siteDiary;
 
   @override
-  // TODO: implement props
   List<Object?> get props => throw UnimplementedError();
 }
 
 class SiteDiarySubmitted extends SiteDiaryState {
   @override
-  // TODO: implement props
   List<Object?> get props => throw UnimplementedError();
+}
+
+class SiteDiarySubmissionFailed extends SiteDiaryState {
+  SiteDiarySubmissionFailed(this.errorMessage);
+
+  final String errorMessage;
+
+  @override
+  List<Object> get props => [
+        errorMessage,
+      ];
 }
